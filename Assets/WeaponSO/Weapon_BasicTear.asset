@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fc6dbbdbee0da41951a110f7cb38a8, type: 3}
+  m_Name: Weapon_BasicTear
+  m_EditorClassIdentifier: Assembly-CSharp::TearWeaponSO
+  projectilePrefab: {fileID: 426791757151176378, guid: f9b4bee1bf6713543ab7c66a616272eb, type: 3}
+  fireInterval: 0.25
+  speed: 12
+  gravityScale: 1.2
+  damage: 1
+  lifeTime: 2
+  spawnOffset: {x: 0, y: 0.1}
