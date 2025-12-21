@@ -1061,6 +1061,7 @@ GameObject:
   - component: {fileID: 2004039662}
   - component: {fileID: 2004039661}
   - component: {fileID: 2004039663}
+  - component: {fileID: 2004039664}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1143,6 +1144,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TearShooter
   currentWeapon: {fileID: 11400000, guid: 2e54bcec3c49ad441bbabc79bc1170cb, type: 2}
   muzzle: {fileID: 0}
+  build: {fileID: 0}
+--- !u!114 &2004039664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004039659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7780ea864a936041911ac4c0572a227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBuildController
+  tearShooter: {fileID: 2004039663}
+  baseWeapon: {fileID: 11400000, guid: 2e54bcec3c49ad441bbabc79bc1170cb, type: 2}
+  ownedPassives: []
+  currentTear:
+    projectilePrefab: {fileID: 0}
+    fireInterval: 0
+    speed: 0
+    gravityScale: 0
+    damage: 0
+    lifeTime: 0
+    spawnOffset: {x: 0, y: 0}
 --- !u!1 &2119715117
 GameObject:
   m_ObjectHideFlags: 0

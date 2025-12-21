@@ -1,5 +1,4 @@
-using Unity.IO.LowLevel.Unsafe;
-using UnityEditor.Rendering.LookDev;
+
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -77,6 +76,7 @@ public class Player : MonoBehaviour
             lastAppliedDir = LookDir;
         }
 
+        EnsureStateMachine();
         locomotionSM.Tick();
 
         if (bodyAnimator != null)
@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        EnsureStateMachine();
         locomotionSM.FixedTick();
     }
 
@@ -135,5 +136,22 @@ public class Player : MonoBehaviour
             return input.x > 0 ? global::LookDir.Right : global::LookDir.Left;
         else
             return input.y > 0 ? global::LookDir.Up : global::LookDir.Down;
+    }
+
+    private void EnsureStateMachine()
+    {
+        if (locomotionSM != null) return;
+
+        locomotionSM = new StateMachine();
+
+        idleState = new PlayerIdle(this, locomotionSM);
+        moveState = new PlayerMove(this, locomotionSM);
+        attackState = new PlayerAttack(this, locomotionSM);
+
+        locomotionSM.AddState(idleState);
+        locomotionSM.AddState(moveState);
+        locomotionSM.AddState(attackState);
+
+        locomotionSM.ChangeState<PlayerIdle>();
     }
 }
