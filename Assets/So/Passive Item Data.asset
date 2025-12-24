@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a973da9b062fc174c913bb0899b86f47, type: 3}
+  m_Name: Passive Item Data
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveItemData
+  id: 
+  displayName: 
+  icon: {fileID: 0}
+  description: 
+  effects:
+  - {fileID: 11400000, guid: 23350ec45e6a79b49b8f02b3bcfced84, type: 2}
+  - {fileID: 11400000, guid: 7070a2855afe39d46b3b6f6720bdb495, type: 2}
