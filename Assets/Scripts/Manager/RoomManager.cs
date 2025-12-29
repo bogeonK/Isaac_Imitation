@@ -1,13 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class RoomManager : baseManager
 {
     private RoomManagerConfig cfg;
-
-    private Camera cam;
     private Transform player;
     private bool isTransitioning;
+    private Transform cineCamTr;
+
+    private Coroutine camMoveCo;
+
+    private float camMoveTime = 0.25f;
 
     public RoomManager(RoomManagerConfig cfg)
     {
@@ -17,7 +21,12 @@ public class RoomManager : baseManager
     public override void Init()
     {
         player = controller.playerTransform;
-        cam = Camera.main;
+
+        var cineCam = Object.FindFirstObjectByType<CinemachineCamera>();
+        cineCamTr = cineCam != null ? cineCam.transform : null;
+
+        if (cineCamTr == null)
+            Debug.LogError("[RoomManager] CinemachineCamera를 못 찾았음!");
     }
 
     public override void Update() { }
@@ -32,20 +41,42 @@ public class RoomManager : baseManager
 
         player.position = optionalSpawn != null ? optionalSpawn.position : targetRoom.transform.position;
 
-        if (cam != null)
+        if (cineCamTr != null)
         {
-            var p = cam.transform.position;
-            p.x = targetRoom.transform.position.x;
-            p.y = targetRoom.transform.position.y;
-            cam.transform.position = p;
+            Vector3 targetCamPos = cineCamTr.position;
+            targetCamPos.x = targetRoom.transform.position.x;
+            targetCamPos.y = targetRoom.transform.position.y;
+
+            if (camMoveCo != null) controller.StopCoroutine(camMoveCo);
+            camMoveCo = controller.StartCoroutine(MoveCameraSmooth(targetCamPos, camMoveTime));
+        }
+        controller.StartCoroutine(EndTransition());
+    }
+
+    private IEnumerator MoveCameraSmooth(Vector3 targetPos, float duration)
+    {
+        Vector3 start = cineCamTr.position;
+        float t = 0f;
+
+        if (duration <= 0f)
+        {
+            cineCamTr.position = targetPos;
+            yield break;
         }
 
-        controller.StartCoroutine(EndTransition());
+        while (t < 1f)
+        {
+            t += Time.deltaTime / duration;
+            cineCamTr.position = Vector3.Lerp(start, targetPos, t);
+            yield return null;
+        }
+
+        cineCamTr.position = targetPos;
     }
 
     private IEnumerator EndTransition()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
         isTransitioning = false;
     }
 }
